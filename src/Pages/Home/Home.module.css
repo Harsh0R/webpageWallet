@@ -1,0 +1,195 @@
+.secretphrasecontainer {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.buttoncontainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.addressContainer{
+    width: 100%;
+    margin: 20px;
+    padding: 15px;
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
+    border-radius: 10px;
+    border: 3px solid wheat;
+}
+
+.btns1 {
+    padding: 10px 20px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 15px;
+    border: 3px solid #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    /* width: 200px; */
+    /* Fixed width for buttons */
+}
+
+.btns1:hover {
+    background-color: wheat;
+    color: black;
+}
+
+
+
+
+
+
+
+
+.secretphrasecontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.dropdownwrapper {
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid #545454;
+    border-radius: 5px;
+    background-color: #000000;
+    color: white;
+}
+
+.dropdownheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #1c1c1c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dropdowntitle {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.dropdownarrow {
+    font-size: 12px;
+    transition: transform 0.3s;
+}
+
+.dropdownarrow.open {
+    transform: rotate(180deg);
+}
+
+.dropdowncontent {
+    padding: 15px;
+    border-top: 1px solid #333;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* 12 equal columns for seed phrases */
+    gap: 10px;
+}
+
+.dropdownitem {
+    background-color: #333;
+    padding: 8px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 14px;
+    grid-column: span 1; /* Each seed item spans 1 column */
+}
+
+.allbuttons {
+    grid-column: span 12; /* Buttons take up the entire last row */
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+
+.toggleVisibilityButton,
+.copybutton,
+.clearbutton {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 32%; /* Each button takes up 32% of the row width */
+    background-color: #444444;
+    color: #ffffff;
+    border: none;
+}
+.toggleVisibilityButton:hover,
+.copybutton:hover,
+.clearbutton:hover {
+    background-color: #000000;
+    border: 3px solid wheat;
+}
+
+.clearbutton {
+    
+    background-color: #ff0800;
+}
+
+.clearbutton:hover {
+    background-color: #c90000;
+}
+
+@media (max-width: 768px) {
+    .dropdowncontent {
+        grid-template-columns: repeat(2, 1fr); /* Stack seed phrases into 2 columns on smaller screens */
+    }
+
+    .allbuttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .toggleVisibilityButton,
+    .copybutton,
+    .clearbutton {
+        width: 100%; /* Full width buttons on smaller screens */
+    }
+}
