@@ -22,10 +22,10 @@ export const WalletProvider = ({ children }) => {
         // localStorage.removeItem('seedWords');
         const seedWords = localStorage.getItem("seedWords");
 
-        console.log("see => ", seedWords);
+        // console.log("see => ", seedWords);
         // console.log("seePh => ", seedPhrase);
 
-        setSeedPhrases(seedPhrase)
+        setSeedPhrases(seedWords)
         // console.log("Words ==> ", seedWords);
     }, [setSeedPhrases, seedPhrase])
 
@@ -38,13 +38,13 @@ export const WalletProvider = ({ children }) => {
     };
 
     const generateNewSeed = async () => {
-        console.log("called.......");
+        // console.log("called.......");
 
         const entropy = crypto.getRandomValues(new Uint8Array(16)); // 16 bytes = 128 bits
         const entropyHex = Array.from(entropy).map(byte => byte.toString(16).padStart(2, '0')).join('');
         const mnemonic = bip39.entropyToMnemonic(entropyHex);
 
-        console.log("mnv ==> ", mnemonic);
+        // console.log("mnv ==> ", mnemonic);
         localStorage.setItem("seedWords", mnemonic);
         return mnemonic;
     }
@@ -77,7 +77,7 @@ export const WalletProvider = ({ children }) => {
         try {
             if (mnemonicStr) {
 
-                console.log("Mnemo => ", mnemonicStr);
+                // console.log("Mnemo => ", mnemonicStr);
                 const node = HDNode.fromMnemonic(mnemonicStr, null, wordlists.en);
 
                 const path = `m/44'/60'/0'/0/${index}`;
@@ -86,7 +86,7 @@ export const WalletProvider = ({ children }) => {
                 const publicKey = wallet.publicKey.toString("hex");
                 const address = ethers.utils.computeAddress(publicKey);
 
-                console.log("Address HEX:", address);
+                // console.log("Address HEX:", address);
                 return address;
             }
         } catch (error) {
@@ -96,7 +96,7 @@ export const WalletProvider = ({ children }) => {
 
     const getSolAddress = async (mnemonicStr, index = 0) => {
         try {
-            console.log("Mnemo => ", mnemonicStr);
+            // console.log("Mnemo => ", mnemonicStr);
             if (mnemonicStr) {
                 // const seed = bip39.mnemonicToSeedSync(mnemonicStr);
                 const seed = HDNode.fromMnemonic(mnemonicStr, null, wordlists.en);
@@ -114,7 +114,7 @@ export const WalletProvider = ({ children }) => {
                 const derivedSeed = derivePath(path, seed.toString("hex")).key;
                 const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
                 const address = Keypair.fromSecretKey(secret).publicKey.toBase58();
-                console.log("Generated Address:", address);
+                // console.log("Generated Address:", address);
                 return address;
             }
         } catch (error) {

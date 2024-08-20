@@ -12,27 +12,27 @@ const Addresses = () => {
     const [availableSolIndexes, setAvailableSolIndexes] = useState([]); // State to track deleted Solana indexes
 
     const handleEthOrPolyAddress = async () => {
-        if (seedPhrase || localStorage.getItem("seedWords")) {
-            const seed = seedPhrase || localStorage.getItem("seedWords")
+        if (seedPhrase) {
+            const seed = seedPhrase
             const index = availableEthIndexes.length > 0 ? availableEthIndexes[0] : ethIndex;
             const address = await getEthAddress(seed, index);
-            
+
             setGeneratedAddresses(prevAddresses => [...prevAddresses, { type: 'Ethereum/Polygon', address, index }]); // Add the new address to the list
-            
+
             if (availableEthIndexes.length > 0) {
                 setAvailableEthIndexes(prevIndexes => prevIndexes.slice(1)); // Remove the used index from available indexes
             } else {
                 setEthIndex(prevIndex => prevIndex + 1); // Increment the derivation index
             }
-        }else{
+        } else {
             alert("Set seed phrase")
         }
     };
-    
+
     const handleSolanaAddress = async () => {
-        
-        if (seedPhrase || localStorage.getItem('seedWords')) {
-            const seed = seedPhrase || localStorage.getItem("seedWords")
+
+        if (seedPhrase) {
+            const seed = seedPhrase
             const index = availableSolIndexes.length > 0 ? availableSolIndexes[0] : solIndex;
             const address = await getSolAddress(seed, index);
             setGeneratedAddresses(prevAddresses => [...prevAddresses, { type: 'Solana', address, index }]);
@@ -43,7 +43,7 @@ const Addresses = () => {
             } else {
                 setSolIndex(prevIndex => prevIndex + 1); // Increment the derivation index
             }
-        }else{
+        } else {
             alert("Set Seed phrase.")
         }
     };
@@ -75,7 +75,7 @@ const Addresses = () => {
                     key={index}
                     type={entry.type}
                     address={entry.address}
-                    onDelete={() => handleDeleteAddress(index)} 
+                    onDelete={() => handleDeleteAddress(index)}
                 />
             ))}
         </>

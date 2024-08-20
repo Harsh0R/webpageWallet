@@ -19,7 +19,7 @@ const SecretPhrase = ({ seeds }) => {
     const handleNext = () => {
         const combined = seedPhrase.join(' ');
         localStorage.setItem("seedWords", combined);
-        console.log("Seed Phrases ===>>> ", combined);
+        // console.log("Seed Phrases ===>>> ", combined);
         
         setSeedPhrases(combined);
         navigate('/');
