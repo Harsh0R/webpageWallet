@@ -23,10 +23,10 @@ export const WalletProvider = ({ children }) => {
         const seedWords = localStorage.getItem("seedWords");
 
         console.log("see => ", seedWords);
-        console.log("seePh => ", seedPhrase);
+        // console.log("seePh => ", seedPhrase);
 
         setSeedPhrases(seedPhrase)
-        console.log("Words ==> ", seedWords);
+        // console.log("Words ==> ", seedWords);
     }, [setSeedPhrases, seedPhrase])
 
 

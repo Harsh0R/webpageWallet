@@ -10,7 +10,7 @@ const Home = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isSeedVisible, setIsSeedVisible] = useState(false); // State to toggle visibility
     const [seeds, setSeeds] = useState([]);
-    console.log("seed in Home ==> ", seedPhrase);
+    // console.log("seed in Home ==> ", seedPhrase);
 
     useEffect(() => {
         if (seedPhrase || localStorage.getItem("seedWords")) {
