@@ -12,10 +12,10 @@ const Addresses = () => {
     const [availableSolIndexes, setAvailableSolIndexes] = useState([]); // State to track deleted Solana indexes
 
     const handleEthOrPolyAddress = async () => {
-        if (seedPhrase) {
-            
+        if (seedPhrase || localStorage.getItem("seedWords")) {
+            const seed = seedPhrase || localStorage.getItem("seedWords")
             const index = availableEthIndexes.length > 0 ? availableEthIndexes[0] : ethIndex;
-            const address = await getEthAddress(seedPhrase, index);
+            const address = await getEthAddress(seed, index);
             
             setGeneratedAddresses(prevAddresses => [...prevAddresses, { type: 'Ethereum/Polygon', address, index }]); // Add the new address to the list
             
@@ -28,12 +28,13 @@ const Addresses = () => {
             alert("Set seed phrase")
         }
     };
-
+    
     const handleSolanaAddress = async () => {
-
-        if (seedPhrase) {
+        
+        if (seedPhrase || localStorage.getItem('seedWords')) {
+            const seed = seedPhrase || localStorage.getItem("seedWords")
             const index = availableSolIndexes.length > 0 ? availableSolIndexes[0] : solIndex;
-            const address = await getSolAddress(seedPhrase, index);
+            const address = await getSolAddress(seed, index);
             setGeneratedAddresses(prevAddresses => [...prevAddresses, { type: 'Solana', address, index }]);
 
 

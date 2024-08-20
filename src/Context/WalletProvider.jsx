@@ -1,11 +1,6 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { HDNode } from '@ethersproject/hdnode';
 import { wordlists } from '@ethersproject/wordlists';
-import {
-    publicToAddress,
-    privateToAddress,
-    toChecksumAddress,
-} from "ethereumjs-util";
 import { ethers } from "ethers"
 import * as bip39 from 'bip39';
 import nacl from "tweetnacl";
@@ -26,13 +21,13 @@ export const WalletProvider = ({ children }) => {
     useEffect(() => {
         // localStorage.removeItem('seedWords');
         const seedWords = localStorage.getItem("seedWords");
-        
+
         console.log("see => ", seedWords);
         console.log("seePh => ", seedPhrase);
 
         setSeedPhrases(seedPhrase)
         console.log("Words ==> ", seedWords);
-    }, [setSeedPhrases , seedPhrase])
+    }, [setSeedPhrases, seedPhrase])
 
 
 
@@ -43,17 +38,17 @@ export const WalletProvider = ({ children }) => {
     };
 
     const generateNewSeed = async () => {
-
         console.log("called.......");
 
         const entropy = crypto.getRandomValues(new Uint8Array(16)); // 16 bytes = 128 bits
         const entropyHex = Array.from(entropy).map(byte => byte.toString(16).padStart(2, '0')).join('');
         const mnemonic = bip39.entropyToMnemonic(entropyHex);
+
         console.log("mnv ==> ", mnemonic);
         localStorage.setItem("seedWords", mnemonic);
         return mnemonic;
-
     }
+
 
     // const getEthAddress = async (mnemonicStr) => {
     //     try {
@@ -87,7 +82,7 @@ export const WalletProvider = ({ children }) => {
 
                 const path = `m/44'/60'/0'/0/${index}`;
                 const wallet = node.derivePath(path);
-                const privateKey = wallet.privateKey.toString("hex");
+                // const privateKey = wallet.privateKey.toString("hex");
                 const publicKey = wallet.publicKey.toString("hex");
                 const address = ethers.utils.computeAddress(publicKey);
 
@@ -103,12 +98,22 @@ export const WalletProvider = ({ children }) => {
         try {
             console.log("Mnemo => ", mnemonicStr);
             if (mnemonicStr) {
-                const seed = bip39.mnemonicToSeedSync(mnemonicStr);
+                // const seed = bip39.mnemonicToSeedSync(mnemonicStr);
+                const seed = HDNode.fromMnemonic(mnemonicStr, null, wordlists.en);
+
+
+                // const keypair = Keypair.fromSecretKey(
+                //     Buffer.from(nacl.sign.keyPair.fromSeed(derivedSeed).secretKey)
+                //   );
+
+                //   const privateKey = Buffer.from(keypair.secretKey).toString("hex");
+                //   const publicKey = keypair.publicKey.toBase58();
+
+
                 const path = `m/44'/501'/${index}'/0'`;
                 const derivedSeed = derivePath(path, seed.toString("hex")).key;
                 const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
-                const address = Keypair.fromSecretKey(secret).publicKey.toBase58()
-                    ;
+                const address = Keypair.fromSecretKey(secret).publicKey.toBase58();
                 console.log("Generated Address:", address);
                 return address;
             }
