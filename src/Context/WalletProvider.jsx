@@ -85,7 +85,7 @@ export const WalletProvider = ({ children }) => {
                 // const privateKey = wallet.privateKey.toString("hex");
                 const publicKey = wallet.publicKey.toString("hex");
                 const address = ethers.utils.computeAddress(publicKey);
-
+ 
                 // console.log("Address HEX:", address);
                 return address;
             }
